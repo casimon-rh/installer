@@ -2,13 +2,17 @@
 all:
   vars:
     ovirt_cluster: "Default"
+    ovirt_clusters:
+      - "cluster1"
+      - "cluster1"
 
     ocp:
       assets_dir: "{{ lookup('env', 'ASSETS_DIR') }}"
       ovirt_config_path: "{{ lookup('env', 'HOME') }}/.ovirt/ovirt-config.yaml"
 
     rhcos:
-      image_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/pre-release/latest-4.6/rhcos-4.6.0-0.nightly-2020-07-16-122837-x86_64-openstack.x86_64.qcow2.gz"
+      image_url: >
+        "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-openstack.x86_64.qcow2.gz"
       local_cmp_image_path: "/tmp/rhcos.qcow2.gz"
       local_image_path: "/tmp/rhcos.qcow2"
 
