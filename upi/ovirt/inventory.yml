@@ -3,8 +3,10 @@ all:
   vars:
     ovirt_cluster: "Default"
     ovirt_clusters:
-      - "cluster1"
-      - "cluster1"
+      - cluster: "cluster1"
+        storage_domain: cluster1
+      - cluster: "cluster2"
+        storage_domain: cluster1
 
     ocp:
       assets_dir: "{{ lookup('env', 'ASSETS_DIR') }}"

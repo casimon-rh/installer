@@ -9,7 +9,7 @@
   - name: Start workers VM
     ovirt_vm:
       auth: "{{ ovirt_auth }}"
-      cluster: "{{ item.profile.cluster }}"
+      cluster: "{{ item.cluster }}"
       name: "{{ item.name }}"
       state: running
       cloud_init_persist: True

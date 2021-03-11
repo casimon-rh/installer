@@ -28,14 +28,12 @@
     shell: "gunzip -c {{ rhcos.local_cmp_image_path }} > {{ rhcos.local_image_path }}"
     when: not image_stats.results[0].stat.exists
 
-  - name: Get templates info
-    ovirt_template_info:
-      auth: "{{ ovirt_auth }}"
-      pattern: name={{ item.template }} and cluster={{ item.cluster }}
-    register: templates_info
-    loop:
-    - "{{ control_plane }}"
-    - "{{ compute }}"
+  
+  - name: Get Templates info
+    include_tasks: get-template-info.yml
+    loop: "{{ ovirt_clusters }}"
+    loop_control:
+      loop_var: ovirt_clusters_item
 
   - name: Templates list
     set_fact:
@@ -50,7 +48,10 @@
     loop: "{{ ovirt_clusters }}"
     loop_control:
       loop_var: ovirt_clusters_item
+      index_var: ovirt_clusters_index
 
+  # TODO: RENAME named templates
+  
   - name: Create VMs infra
     include_role:
       name: ovirt.vm-infra

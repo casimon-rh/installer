@@ -1,13 +1,13 @@
-- name: Create templates
+- name: "Create templates {{ ovirt_clusters_index }}"
   include_role:
     name: ovirt.image-template
   vars:
     qcow_url: "file://{{ rhcos.local_image_path }}"
     image_path: "{{ rhcos.local_image_path }}"
-    template_cluster: "{{ ovirt_clusters_item }}"
-    template_name: "{{ item.template }}"
+    template_cluster: "{{ ovirt_clusters_item.cluster }}"
+    template_name: "{{ item.template }}{{ ovirt_clusters_index }}"
     template_memory_guaranteed: "{{ item.memory_guaranteed | default(omit) }}"
-    template_disk_storage: "{{ item.disks.0.storage_domain }}"
+    template_disk_storage: "{{ ovirt_clusters_item.storage_domain }}"
     template_operating_system: "{{ item.operating_system }}"
     template_seal: no
   loop:

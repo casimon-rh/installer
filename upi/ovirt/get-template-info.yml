@@ -1,0 +1,8 @@
+- name: "Get templates info {{ovirt_clusters_index}}"
+  ovirt_template_info:
+    auth: "{{ ovirt_auth }}"
+    pattern: name={{ item.template }} and cluster={{ ovirt_clusters_item.cluster }}
+  register: templates_info
+  loop:
+  - "{{ control_plane }}"
+  - "{{ compute }}"
